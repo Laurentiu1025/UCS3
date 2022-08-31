@@ -17,6 +17,12 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
+    public Product saveProduct(Product product) {
+        this.productRepository.save(product);
+        return product;
+    }
+
+    @Override
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         productRepository.findAll().forEach(products::add);

@@ -34,6 +34,9 @@ public class Product {
     @DecimalMin(value = "0.00", message = "*Price has to be non negative number")
     float price;
 
+    @Column(name = "description")
+    private String description;
+
     public Product() {
         super();
     }

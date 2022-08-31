@@ -6,13 +6,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 import ro.itschool.entity.Product;
 import ro.itschool.exception.ProductException;
+import ro.itschool.repository.ProductRepository;
 import ro.itschool.service.ProductService;
+import ro.itschool.util.FileUploadUtil;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +33,29 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @GetMapping("/product/{id}")
+    public String product(@PathVariable Long id, Model model) {
+        model.addAttribute("movie", productRepository.findById(id).get());
+        return "product";
+    }
+
+    @PostMapping("/saveProduct")
+    public RedirectView saveProduct(@ModelAttribute("product") Product product,
+                                  @RequestParam("product") MultipartFile multipartFile) throws IOException {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename()));
+
+        Product saveProduct = productService.saveProduct(product);
+
+        String uploadDir = "product-photos/" + saveProduct.getId();
+
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        return new RedirectView("/", true);
+    }
+
 
     @GetMapping()
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -54,7 +84,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @PostMapping()
+    @GetMapping("/addProduct")
     public ResponseEntity<?> addProduct(@Valid @RequestBody Product product, Errors errors) throws ProductException {
 
         if (errors.hasErrors()) {
@@ -93,7 +123,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @DeleteMapping("/delete-product/{id}")
+    @DeleteMapping("/deleteProduct/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) throws ProductException {
         Optional<Product> currentProduct = productService.findProductById(id);
         if (currentProduct.isEmpty()) {
