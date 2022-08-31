@@ -1,0 +1,446 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>UCS3</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+    <!--    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: ;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-products {
+    padding: 80px 0 54px;
+}
+
+.section-products .header {
+    margin-bottom: 50px;
+}
+
+.section-products .header h3 {
+    font-size: 1rem;
+    color: #fe302f;
+    font-weight: 500;
+}
+
+.section-products .header h2 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: #444444;
+}
+
+.section-products .single-product {
+    margin-bottom: 26px;
+}
+
+.section-products .single-product .part-1 {
+    position: relative;
+    height: 290px;
+    max-height: 290px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.section-products .single-product .part-1::before {
+		position: absolute;
+		content: "";
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		transition: all 0.3s;
+}
+
+.section-products .single-product:hover .part-1::before {
+		transform: scale(1.2,1.2) rotate(5deg);
+}
+
+.section-products #product-1 .part-1::before {
+    background: url("data:image/jpeg;base64,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") no-repeat center;
+    background-size: fill;
+		transition: all 0.3s;
+}
+
+.section-products #product-2 .part-1::before {
+    background: url("https://bbts1.azureedge.net/images/p/full/2019/08/b86a3758-438c-456a-9afe-f7d21197f843.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.section-products #product-3 .part-1::before {
+    background: url("https://ironusa.vtexassets.com/arquivos/ids/186407-1536-2048?v=637807479274400000&width=1536&height=2048&aspect=true") no-repeat center;
+    background-size: cover;
+
+}
+
+.section-products #product-4 .part-1::before {
+    background: url("https://cdn.popcultcha.com.au/media/catalog/product/cache/207e23213cf636ccdef205098cf3c8a3/i/r/iro99738-avengers-4-endgame-thanos-deluxe-1-4-scale-statue-23.jpg") no-repeat center;
+    background-size: cover;
+}
+.section-products #product-5 .part-1::before {
+    background: url("https://www.mythfactoryshop.com/40732-large_default/Logan-Iron-Studios-BDS-Art-Scale-X-Men.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.section-products #product-6 .part-1::before {
+    background: url("https://media.entertainmentearth.com/assets/images/e23fa25401684c37a89e02d757c19b97xl.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.section-products #product-7 .part-1::before {
+    background: url("https://www.admin.figurine.ro/upload/produse/10426/resize/is12794_239.jpeg") no-repeat center;
+    background-size: cover;
+}
+
+.section-products #product-8 .part-1::before {
+    background: url("https://images.caconnect.ro/images/descriptions/31013/1.png") no-repeat center;
+    background-size: cover;
+}
+
+.section-products #product-9 .part-1::before {
+    background: url("https://statuecollectibles.com/images_upd/products/3/ro4yfu7pelab.jpg") no-repeat center;
+    background-size: cover;
+}
+
+.section-products .single-product .part-1 .discount,
+.section-products .single-product .part-1 .new {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+    color: #ffffff;
+    background-color: #fe302f;
+    padding: 2px 8px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.section-products .single-product .part-1 .new {
+    left: 0;
+    background-color: #444444;
+}
+
+.section-products .single-product .part-1 ul {
+    position: absolute;
+    bottom: -41px;
+    left: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    opacity: 0;
+    transition: bottom 0.5s, opacity 0.5s;
+}
+
+.section-products .single-product:hover .part-1 ul {
+    bottom: 30px;
+    opacity: 1;
+}
+
+.section-products .single-product .part-1 ul li {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.section-products .single-product .part-1 ul li a {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    background-color: #ffffff;
+    color: #444444;
+    text-align: center;
+    box-shadow: 0 2px 20px rgb(50 50 50 / 10%);
+    transition: color 0.2s;
+}
+
+.section-products .single-product .part-1 ul li a:hover {
+    color: #fe302f;
+}
+
+.section-products .single-product .part-2 .product-title {
+    font-size: 1rem;
+}
+
+.section-products .single-product .part-2 h4 {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.section-products .single-product .part-2 .product-old-price {
+    position: relative;
+    padding: 0 7px;
+    margin-right: 2px;
+    opacity: 0.6;
+}
+
+.section-products .single-product .part-2 .product-old-price::after {
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #444444;
+    transform: translateY(-50%);
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #000000;
+}
+
+.topnav a {
+  float: right;
+  color: #ffffff;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #7A7B77;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #7A7B77;
+  float:left;
+  font-family: Copperplate, Fantasy;
+  font-size: 30px;
+}
+.btn{
+background-color: #7A7B77
+}
+
+.header {
+  background-image: url('https://www.themarysue.com/wp-content/uploads/2011/08/Dc-vs-marvel.png');
+  padding: 20px;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 10px;
+  background-position: center;
+  }
+  .header h1{
+  font-size: 40px;
+  font-family: Copperplate, Fantasy;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="topnav">
+    <a class="active" th:href="@{/index}"><i style="font-size:26px"></i>UCS3</a>
+    <a class="active1" href="#" th:href="@{/logout}"><i class="fa fa-sign-out" style="font-size:20px"></i></a>
+    <a href="abs" th:href="@{/shoppingCart}">
+        <form class="d-flex">
+        <button class="btn btn-outline-dark" type="submit" th:href="@{/shoppingCart}">
+            <i class="bi-cart-fill me-1" style="font-size:5px"></i>
+            <i class="fa fa-shopping-cart" style="font-size:20px"></i>
+            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+        </button>
+    </form></a>
+    <a href="abs"><i class="fa fa-fw fa-search"></i> Search</a>
+    <a href="abs"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="nav-link" href="/users"><i class="fa fa-fw fa-user"></i>All Users</a>
+    </div>
+</div>
+<div class="header">
+    <h1>UNIQUE COLLECTABLES SCULPTURES</h1>
+</div>
+<section class="section-products">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-8 col-lg-6">
+            </div>
+        </div>
+        <div class="row">
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-1" class="single-product">
+                    <div class="part-1">
+                        <span class="discount">30% reducere</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Hulk</h3>
+                        <h4 class="product-old-price">1800 RON</h4>
+                        <h4 class="product-price">1260 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-2" class="single-product">
+                    <div class="part-1">
+<!--                        <span class="discount">15% off</span>-->
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Iron Man</h3>
+                        <h4 class="product-price">2100 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-3" class="single-product">
+                    <div class="part-1">
+                        <span class="discount">20% reducere</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Captain America</h3>
+                        <h4 class="product-old-price">2500 RON</h4>
+                        <h4 class="product-price">2000 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-4" class="single-product">
+                    <div class="part-1">
+<!--                        <span class="new">new</span>-->
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Thanos</h3>
+                        <h4 class="product-price">1400 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-5" class="single-product">
+                    <div class="part-1">
+                        <span class="discount">40% reducere</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <td><span th:text="${product.id}"> #Id</span></td>
+                        <h3 class="product-name">Logan</h3>
+                        <h4 class="product-old-price">1600 RON</h4>
+                        <h4 class="product-price">940 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-6" class="single-product">
+                    <div class="part-1">
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Batman</h3>
+                        <h4 class="product-price">1800 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-7" class="single-product">
+                    <div class="part-1">
+                        <span class="discount">15% reducere</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Thor</h3>
+                        <h4 class="product-old-price">2600 RON</h4>
+                        <h4 class="product-price">2210 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product -->
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-8" class="single-product">
+                    <div class="part-1">
+                        <span class="new">new</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">The Mandalorian</h3>
+                        <h4 class="product-price">3200 RON</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 col-xl-3">
+                <div id="product-9" class="single-product">
+                    <div class="part-1">
+                        <span class="new">new</span>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
+                            <li><a href="#"><i class="fas fa-expand"></i></a></li>
+                            <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"><i class="fa-solid fa-trash"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="part-2">
+                        <h3 class="product-name">Obi-Wan Kenobi</h3>
+                        <h4 class="product-price">2800 RON</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+</body>
+</html>

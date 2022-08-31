@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+
+    <style>
+    h1 { font-size: 40px; color: black; font-family: "Optima", sans-serif;
+    }
+    h2 {font-size: 16px; color: black  ; font-family: "Optima", sans-serif;
+    }
+.btn-success {
+  align-items: center;
+  background-color: #000000;
+  border-radius: 3px;
+  box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: "Optima", sans-serif;
+  font-size: 2.0rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s,-webkit-box-shadow .2s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-success:hover {
+  box-shadow: linear-gradient(120deg, #7A7B77, #ffffff ) 0 0 0 3px, transparent 0 0 0 0;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Optima", sans-serif;
+}
+body{
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(120deg, #7A7B77, #ffffff );
+  height: 100vh;
+  overflow: hidden;
+}
+    </style>
+
+</head>
+<body><br><br>
+<div class="container-fluid text-center">
+    <div class="text-center"><h1>Create an account</h1></div>
+
+    <form action="#" th:action="@{/register}" th:object="${user}" method="post"
+          style="max-width:280px; margin:0 auto"><br>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><h2>Name:</h2></label>
+            <div class="col-sm-8">
+                <br>
+                <input type="text" th:field="*{fullName}" id="fullName" required/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><h2>Email:</h2></label>
+            <div class="col-sm-8">
+                <br>
+                <input type="email" th:field="*{email}" id="email" required minlength="5"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><h2>Username:</h2></label>
+            <div class="col-sm-8">
+                <br>
+                <input type="text" th:field="*{username}" id="username" required/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><h2>Password:</h2></label>
+            <div class="col-sm-8">
+                <br>
+                <input type="password" th:field="*{password}" id="password" required minlength="4"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-4 col-form-label"><h2>Repeat password:</h2></label>
+            <div class="col-sm-8">
+                <br>
+                <input type="password" th:field="*{passwordConfirm}" id="passwordConfirm" required minlength="4"/>
+            </div>
+            <br>
+            <!--            <div th:if="${user.password != user.passwordConfirm}"><b><p class="text-danger">Passwords do not match!</p>-->
+            <!--            </b></div>-->
+        </div>
+        <div th:if="${user.password != user.passwordConfirm}" class="alert alert-danger" role="alert">
+            <p class="error">Passwords do not match!</p>
+        </div>
+
+        <div>
+            <input type="hidden" th:field="*{accountNonExpired}"/>
+            <input type="hidden" th:field="*{accountNonLocked}"/>
+            <input type="hidden" th:field="*{credentialsNonExpired}"/>
+            <input type="hidden" th:field="*{enabled}"/>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-success">Register</button>
+        </div>
+        <br>
+
+        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login" class="fw-bold text-body"><u>Login
+            here</u></a></p>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.thymeleaf.org ">
+<head>
+    <br><br>
+    <title>Login page</title>
+
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+    h1 { font-size: 40px; color: black; font-family: "Optima", sans-serif;
+    }
+
+    h2 { font-size: 15px; color: black; font-family: "Optima", sans-serif;
+    }
+
+.btn-success {
+  align-items: center;
+  background-color: #000000;
+  border-radius: 3px;
+  box-shadow: transparent 0 0 0 3px,rgba(18, 18, 18, .1) 0 6px 20px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 auto;
+  font-family: "Optima", sans-serif;
+  font-size: 2.0rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  margin: 0;
+  outline: none;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s,-webkit-box-shadow .2s;
+  white-space: nowrap;
+  border: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.btn-success:hover {
+ background: #7A7B77
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Optima", sans-serif;
+}
+body{
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(120deg, #7A7B77, #ffffff );
+  height: 100vh;
+  overflow: hidden;
+}
+
+    </style>
+</head>
+<body>
+<div align="center">
+    <h1>Login page</h1>
+</div>
+<br>
+<div class="container" align="center" style="max-width:330px; margin:0 auto">
+
+    <div th:if="${loginError}" class="alert alert-danger" role="alert">
+        <p class="error">Wrong user or password</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div class="mx-auto">
+            <label class="control-label" for="username"><h2>Username</h2></label>:
+            <input type="username" id="username" class="from-control" name="username"
+                   autofocus="autofocus"/></div>
+        <br/>
+        <div class="mx-auto">
+            <label class="control-label" for="password"><h2>Password</h2></label>:
+            <input type="password" id="password" class="from-control" name="password"/></div>
+        <br/>
+        <div style="height:5px;">
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success" >Login</button>
+            <form action="@{/register}">
+                <button type="button" class="btn btn-success" th:onclick="|window.location.href='/register'|">Register</button>
+            </form>
+        </div>
+    </form>
+</div>
+</body>
+</html>
